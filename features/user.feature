@@ -28,9 +28,7 @@ Feature: Manage WordPress users
     Then STDOUT should be empty
 
     When I run `wp user generate --count=10`
-    Then STDOUT should not be empty
- 
-    When I run `wp user list | wc -l | tr -d ' '`
+    And I run `wp user list | wc -l | tr -d ' '`
     Then STDOUT should be:
       """
       11
