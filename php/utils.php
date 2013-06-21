@@ -379,3 +379,10 @@ function mustache_render( $template_name, $data ) {
 	return $m->render( $template, $data );
 }
 
+function make_progress_bar( $message, $count ) {
+	if ( \cli\Shell::isPiped() )
+		return new \WP_CLI\NoOp;
+
+	return new \cli\progress\Bar( $message, $count );
+}
+
