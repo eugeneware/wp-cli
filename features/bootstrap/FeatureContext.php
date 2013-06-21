@@ -191,7 +191,12 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 
 		$this->proc( 'wp core config', array( 'dbprefix' => $subdir ? $subdir : 'wp_' ) )->run_check( $subdir );
 
-		$this->proc( 'wp core install' )->run_check( $subdir );
+		// Can't use run_check() because sendmail outputs stuff to STDERR
+		$r = $this->proc( 'wp core install' )->run( $subdir );
+		if ( $r->return_code ) {
+			throw new \RuntimeException( sprintf( "%s: %s\ncwd: %s",
+				$r->command, $r->STDERR, $r->cwd ) );
+		}
 	}
 }
 

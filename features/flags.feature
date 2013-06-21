@@ -19,7 +19,7 @@ Feature: Global flags
       CONST_WITHOUT_QUOTES
       """
 
-    When I run `wp eval 'echo CONST_WITHOUT_QUOTES;' --debug`
+    When I try `wp eval 'echo CONST_WITHOUT_QUOTES;' --debug`
     Then the return code should be 0
     And STDOUT should be:
       """
